@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="row g-4">
+    <!-- Coluna 1: Formulário de Cadastro de Vendedor -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-feira text-white">
+                <h1 class="h5 mb-0">Cadastrar Feirante</h1>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('vendedores') }}">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label fw-bold">Nome do Vendedor(a) *</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex: Dona Lúcia" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="barraca" class="form-label fw-bold">Nome/Local da Barraca *</label>
+                        <input type="text" class="form-control" id="barraca" name="barraca" placeholder="Ex: Temperos da Lúcia (Setor A)" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label fw-bold">Telefone / WhatsApp *</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Ex: (11) 98888-7777" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dia_feira" class="form-label fw-bold">Dia de Funcionamento *</label>
+                        <select class="form-select" id="dia_feira" name="dia_feira" required>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                            <option value="Sábado e Domingo">Sábado e Domingo</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Cadastrar Vendedor</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coluna 2: Lista de Vendedores Cadastrados -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h2 class="h5 mb-0">Feirantes e Barracas Cadastradas ({{ vendedores|length }})</h2>
+            </div>
+            <div class="card-body">
+                {% if vendedores %}
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Feirante</th>
+                                    <th>Barraca</th>
+                                    <th>Contato</th>
+                                    <th>Dia da Feira</th>
+                                    <th class="text-end">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in vendedores %}
+                                    <tr>
+                                        <td class="fw-bold">{{ v.nome }}</td>
+                                        <td>{{ v.barraca }}</td>
+                                        <td>{{ v.telefone }}</td>
+                                        <td><span class="badge bg-info text-dark">{{ v.dia_feira }}</span></td>
+                                        <td class="text-end">
+                                            <div class="d-inline-flex gap-1">
+                                                <a href="{{ url_for('editar_vendedor', id=v.id) }}" class="btn btn-sm btn-outline-primary">
+                                                    ✏️ Editar
+                                                </a>
+                                                <form action="{{ url_for('excluir_vendedor', id=v.id) }}" method="POST" onsubmit="return confirm('Atenção: Excluir o vendedor também apagará os produtos dele. Continuar?');">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        🗑️ Excluir
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">Nenhum feirante cadastrado ainda.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

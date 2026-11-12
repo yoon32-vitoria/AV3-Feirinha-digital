@@ -1,0 +1,113 @@
+/* ==========================================
+   Estilo Principal - FeirinhaDigital
+   ========================================== */
+body {
+    background-color: #f6f9f6;
+    color: #212529;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.bg-feira {
+    background-color: #1f6f43 !important;
+}
+
+.barra-acessibilidade {
+    background-color: #e9f2ec;
+}
+
+.banner-feira {
+    background: linear-gradient(135deg, #e3f4ea 0%, #d0ebd9 100%);
+    border-left: 6px solid #1f6f43;
+}
+
+.preco-destaque {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #1f6f43;
+}
+
+.card-produto {
+    transition: transform 0.15s ease-in-out;
+}
+
+.card-produto:hover {
+    transform: translateY(-3px);
+}
+
+.badge-api {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+}
+
+/* ==========================================
+   Recurso de Acessibilidade: Skip Link
+   ========================================== */
+.skip-link {
+    position: absolute;
+    top: -50px;
+    left: 10px;
+    background: #ffeb3b;
+    color: #000;
+    padding: 8px 14px;
+    font-weight: bold;
+    z-index: 9999;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+/* ==========================================
+   Recurso de Acessibilidade: Alto Contraste
+   ========================================== */
+body.alto-contraste {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .barra-acessibilidade,
+body.alto-contraste .bg-feira,
+body.alto-contraste .banner-feira,
+body.alto-contraste .card,
+body.alto-contraste .card-header,
+body.alto-contraste .rodape,
+body.alto-contraste .table {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste .card,
+body.alto-contraste .banner-feira {
+    border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste a,
+body.alto-contraste .navbar-brand,
+body.alto-contraste .nav-link,
+body.alto-contraste .preco-destaque,
+body.alto-contraste h1,
+body.alto-contraste h2 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .text-muted {
+    color: #e0e0e0 !important;
+}
+
+body.alto-contraste .form-control,
+body.alto-contraste .form-select {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.alto-contraste .btn {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    font-weight: bold;
+}

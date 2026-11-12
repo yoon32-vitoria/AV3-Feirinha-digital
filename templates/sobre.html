@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body p-4">
+        <h1 class="h3 fw-bold mb-3">Sobre o Projeto FeirinhaDigital</h1>
+        <p>
+            O <strong>FeirinhaDigital</strong> foi desenvolvido como exemplo para a <strong>UC35: Projeto Integrador Back-end</strong>.
+            O objetivo do sistema é resolver um problema real do nosso bairro: a falta de divulgação dos produtos, preços e contatos dos feirantes locais antes do dia da feira.
+        </p>
+
+        <div class="row g-4 mt-2">
+            <div class="col-md-6">
+                <div class="p-3 border rounded h-100">
+                    <h2 class="h5 fw-bold">🎯 Problema da Comunidade e ODS</h2>
+                    <p class="mb-2">
+                        Muitos moradores do bairro deixam de comprar na feira livre por não saberem quais produtos estão disponíveis, quanto custam ou em qual setor fica cada barraca.
+                    </p>
+                    <p class="mb-0">
+                        <strong>ODS 8 (Trabalho Decente e Crescimento Econômico)</strong> e <strong>ODS 11 (Cidades e Comunidades Sustentáveis)</strong>:
+                        O sistema fortalece os pequenos produtores e feirantes locais, incentivando o consumo de alimentos frescos na própria vizinhança.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-3 border rounded h-100">
+                    <h2 class="h5 fw-bold">♿ Recursos de Acessibilidade</h2>
+                    <ul class="mb-0">
+                        <li><strong>Modo de Alto Contraste:</strong> Botão no topo da página que aplica fundo escuro e textos em amarelo/branco de alta visibilidade para pessoas com baixa visão.</li>
+                        <li><strong>Controle de Tamanho da Fonte (A+ / A-):</strong> Permite ampliar os textos de toda a aplicação.</li>
+                        <li><strong>Navegação por Teclado (Skip Link):</strong> Ao pressionar a tecla <code>Tab</code>, aparece o atalho "Pular para o conteúdo principal".</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h2 class="h5 fw-bold">🔗 Integração via API JSON</h2>
+        <p class="mb-2">
+            O sistema disponibiliza uma rota pública em formato JSON para integração com outros aplicativos ou consultas rápidas:
+        </p>
+        <a href="{{ url_for('api_produtos') }}" target="_blank" class="btn btn-outline-success">
+            Visualizar Retorno da API (/api/produtos)
+        </a>
+    </div>
+</div>
+{% endblock %}

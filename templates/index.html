@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<!-- Banner de apresentação -->
+<div class="p-4 mb-4 rounded-3 banner-feira shadow-sm">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold">Vitrine da Feira do Bairro</h1>
+            <p class="mb-2">
+                Confira os produtos fresquinhos cadastrados pelos feirantes da nossa região, compare preços e saiba exatamente em qual barraca encontrar!
+            </p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="{{ url_for('novo_produto') }}" class="btn btn-success btn-lg">
+                + Cadastrar Produto
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Filtro por Categoria -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('index') }}" class="row g-2 align-items-end">
+            <div class="col-sm-8 col-md-9">
+                <label for="categoria" class="form-label fw-bold">Filtrar produtos por categoria:</label>
+                <select name="categoria" id="categoria" class="form-select">
+                    <option value="">Todas as categorias</option>
+                    {% for cat in categorias %}
+                        <option value="{{ cat }}" {% if cat == categoria_selecionada %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-4 col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                {% if categoria_selecionada %}
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Limpar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Listagem de Produtos (Resultado do INNER JOIN entre produtos e vendedores) -->
+{% if produtos %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for produto in produtos %}
+            <div class="col">
+                <div class="card h-100 shadow-sm card-produto">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-secondary">{{ produto.categoria }}</span>
+                            {% if produto.disponivel %}
+                                <span class="badge bg-success">Disponível hoje</span>
+                            {% else %}
+                                <span class="badge bg-danger">Esgotado</span>
+                            {% endif %}
+                        </div>
+
+                        <h2 class="h5 card-title fw-bold">{{ produto.nome }}</h2>
+                        <p class="preco-destaque mb-3">
+                            R$ {{ "%.2f"|format(produto.preco)|replace('.', ',') }}
+                            <small class="text-muted fw-normal">/ {{ produto.unidade }}</small>
+                        </p>
+
+                        <hr>
+                        <!-- Dados vindos da tabela vendedores pelo INNER JOIN -->
+                        <div class="small">
+                            <p class="mb-1"><strong>🧑‍🌾 Feirante:</strong> {{ produto.vendedor_nome }}</p>
+                            <p class="mb-1"><strong>⛺ Barraca:</strong> {{ produto.vendedor_barraca }}</p>
+                            <p class="mb-1"><strong>📅 Dia:</strong> {{ produto.vendedor_dia }}</p>
+                            <p class="mb-0"><strong>📞 Contato:</strong> {{ produto.vendedor_telefone }}</p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-transparent d-flex justify-content-between">
+                        <a href="{{ url_for('editar_produto', id=produto.id) }}" class="btn btn-sm btn-outline-primary">
+                            ✏️ Editar
+                        </a>
+                        <form action="{{ url_for('excluir_produto', id=produto.id) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir este produto?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                🗑️ Excluir
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info text-center p-4">
+        <p class="mb-2">Nenhum produto encontrado para esta categoria.</p>
+        <a href="{{ url_for('novo_produto') }}" class="btn btn-success">Cadastrar primeiro produto</a>
+    </div>
+{% endif %}
+{% endblock %}
